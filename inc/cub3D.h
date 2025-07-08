@@ -98,6 +98,11 @@ typedef struct s_game
     t_textures  textures;   // ← Nuevo para cub3D
 }   t_game;
 
+typedef struct s_data
+{
+    t_game  *game;
+    char    **map;
+} t_data;
 
 // Functions
 char **read_map_simple(char *filename);
@@ -105,5 +110,12 @@ void find_player(char **map, t_player *player);
 void my_pixel_put(t_game *game, int x, int y, int color);
 void real_raycasting(t_game *game, char **map);
 
+// Movement functions
+void move_forward(t_game *game, char **map);
+void move_backward(t_game *game, char **map);
+void strafe_left(t_game *game, char **map);
+void strafe_right(t_game *game, char **map);
+void rotate_left(t_game *game);
+void rotate_right(t_game *game);
 
 #endif
