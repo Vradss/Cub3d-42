@@ -25,15 +25,40 @@ int key_hook(int keycode, t_game *game)
     return (0);
 }
 
+void	init_vars(t_game *game)
+{
+	game->player.plane_x = 0.0;
+	game->player.plane_y = 0.66;
+	game->keys.key_w = 0;
+	game->keys.key_a = 0;
+	game->keys.key_s = 0;
+	game->keys.key_d = 0;
+	game->keys.key_left = 0;
+	game->keys.key_right = 0;
+	game->keys.key_shift = 0;
+	game->map->grid = NULL; // CHECK THIS
+	game->zbuffer = NULL;
+	game->texture = NULL;
+}
+
 int main(int argc, char **argv)
 {
-    (void)argc;
     t_game game;
-    
-    if (argc != 2)
+	t_data data;
+
+    if (argc == 2)
     {
-        printf("Usage: %s map.cub\n", argv[0]);
-        return (1);
+        // init MLX
+        // init vars
+        data = check_data(argv[1], &game);
+        printf("NO texture: %s\n", data.no);
+        // go to game: game_main(&game, &data);
+    }
+    else
+    {
+        printf("Error:Wrong number of arguments\n");
+        printf("Compile with: ./cub3D maps/[map.cub]\n");
+        exit(EXIT_FAILURE);
     }
     
     // Leer mapa

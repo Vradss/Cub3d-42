@@ -27,7 +27,9 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/gnl/get_next_line.c \
 		$(SRC_DIR)/gnl/get_next_line_utils.c \
 		$(SRC_DIR)/parser.c \
-		$(SRC_DIR)/raycasting.c
+		$(SRC_DIR)/raycasting.c \
+		$(SRC_DIR)/parser_data.c \
+
 
 
 # Object files 

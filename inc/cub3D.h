@@ -84,6 +84,20 @@ typedef struct s_textures
     int     height;         // Alto texturas
 }   t_textures;
 
+typedef struct s_keys
+{
+	int			key_a;
+	int			key_w;
+	int			key_s;
+	int			key_d;
+	int			key_m;
+	int			key_h;
+	int			key_left;
+	int			key_right;
+	int			key_shift;
+	int			key_space;
+}				t_keys;
+
 typedef struct s_game
 {
     void        *mlx;       // ← IGUAL que so_long
@@ -96,7 +110,26 @@ typedef struct s_game
     t_map       *map;       // ← Adaptado de so_long
     t_player    player;     // ← Adaptado de so_long  
     t_textures  textures;   // ← Nuevo para cub3D
+    t_keys		keys;
+    int			**zbuffer;
+	int			**texture;
 }   t_game;
+
+typedef struct s_data
+{
+	int			reading_pos;
+	int			error;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			f_color[3];
+	int			c_color[3];
+	int			map_length;
+	size_t		line_size;
+	char		**raw_map;
+}				t_data;
+
 
 
 // Functions
@@ -104,6 +137,10 @@ char **read_map_simple(char *filename);
 void find_player(char **map, t_player *player);
 void my_pixel_put(t_game *game, int x, int y, int color);
 void real_raycasting(t_game *game, char **map);
+
+// parsing
+t_data check_data(char *argv, t_game *game);
+void	init_data(t_data *data);
 
 
 #endif
