@@ -1,0 +1,81 @@
+#include "cub3D.h"
+
+void    my_pixel_put(t_game *game, int x, int y, int color)
+{
+    char    *dst;
+    
+    if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
+        return;
+    dst = game->img_data + (y * game->line_len + x * (game->bpp / 8));
+    *(unsigned int*)dst = color;
+}
+
+int key_hook(int keycode, t_game *game)
+{
+    printf("Tecla presionada: %d\n", keycode);
+    
+    if (keycode == ESC_KEY)
+        exit(0);
+    else if (keycode == W_KEY)
+    {
+        game->player.x += 0.1;
+        printf("Moviendo a: (%.1f, %.1f)\n", game->player.x, game->player.y);
+    }
+    
+    return (0);
+}
+
+int main(int argc, char **argv)
+{
+    (void)argc;
+    t_game game;
+    
+    if (argc != 2)
+    {
+        printf("Usage: %s map.cub\n", argv[0]);
+        return (1);
+    }
+    
+    // Leer mapa
+    char **map = read_map_simple(argv[1]);
+    if (!map)
+    {
+        printf("Error: Can't read map\n");
+        return (1);
+    }
+    
+    // Encontrar jugador
+    find_player(map, &game.player);
+        
+    // Init MLX
+    game.mlx = mlx_init();
+    if (!game.mlx)
+    {
+        printf("Error: MLX init failed\n");
+        return (1);
+    }
+    
+    game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D test");
+    if (!game.win)
+    {
+        printf("Error: Window creation failed\n");
+        return (1);
+    }
+    
+    // Crear buffer de imagen
+    game.img = mlx_new_image(game.mlx, WIN_WIDTH, WIN_HEIGHT);
+    game.img_data = mlx_get_data_addr(game.img, &game.bpp, &game.line_len, &game.endian);
+    
+    printf("Buffer creado: %d bpp, %d line_len\n", game.bpp, game.line_len);
+    
+    
+    real_raycasting(&game, map);
+    mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
+    
+    mlx_key_hook(game.win, key_hook, &game);
+    
+    printf("✅ Todo listo, iniciando loop\n");
+    mlx_loop(game.mlx);
+    
+    return (0);
+}
