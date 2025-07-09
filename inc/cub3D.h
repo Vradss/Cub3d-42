@@ -8,7 +8,9 @@
 # include <mlx.h>
 # include <math.h>
 # include "../src/gnl/get_next_line.h"
-#include <string.h>
+# include "../libft/libft.h"
+# include <string.h>
+# include <stdbool.h>
 
 
 /* 
@@ -141,6 +143,10 @@ void real_raycasting(t_game *game, char **map);
 // parsing
 t_data check_data(char *argv, t_game *game);
 void	init_data(t_data *data);
+int     read_map(char *map, t_data *data, t_game *game);
+
+//Exit & free
+void    exit_error(char *info);
 
 
 #endif

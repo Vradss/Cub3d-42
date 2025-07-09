@@ -56,8 +56,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        printf("Error:Wrong number of arguments\n");
-        printf("Compile with: ./cub3D maps/[map.cub]\n");
+        printf("Error:\nWrong nb of args. Use: ./cub3D maps/[map.cub]\n");
         exit(EXIT_FAILURE);
     }
     

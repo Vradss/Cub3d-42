@@ -21,6 +21,11 @@ MLX_DIR = mlx
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+LFLAGS      = -L $(LIBFT_DIR) -lft
+
+#libft
+LIBFT_DIR   = libft
+LIBFT       = $(LIBFT_DIR)/libft.a
 
 # Source files - All paths now include SRC_DIR
 SRCS =	$(SRC_DIR)/main.c \
@@ -29,6 +34,8 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parser.c \
 		$(SRC_DIR)/raycasting.c \
 		$(SRC_DIR)/parser_data.c \
+		$(SRC_DIR)/exit_n_free.c \
+		$(SRC_DIR)/parser_map.c \
 
 
 
@@ -42,9 +49,12 @@ all: $(NAME)
 mlx:
 	@make -C $(MLX_DIR)
 
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
 # Linking rule - Takes objects from OBJ_DIR
-$(NAME): mlx $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+$(NAME): mlx $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX_FLAGS)
 	@echo "$(BLUE) $(NAME) --> Created & compiled 👀$(END)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -57,11 +67,13 @@ clean:
 	@echo "$(GREEN) All objects files deleted 💀💀 $(END)"
 	@rm -rf $(OBJ_DIR)
 	@make -C $(MLX_DIR) clean
+	@make clean -C $(LIBFT_DIR)
 
 # Full clean rule - Calls clean and then removes executable
 fclean: clean
 	@echo "$(RED) $(NAME) deleted 💀💀 $(END)"
 	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 # Rebuild rule
 re: fclean all

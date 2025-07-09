@@ -3,10 +3,10 @@
 void	init_data(t_data *data)
 {
 	data->raw_map = NULL;
-	data->no = strdup("X"); //CHANGE TO FT_STRDUP
-	data->so = strdup("X");
-	data->we = strdup("X");
-	data->ea = strdup("X");
+	data->no = ft_strdup("X");
+	data->so = ft_strdup("X");
+	data->we = ft_strdup("X");
+	data->ea = ft_strdup("X");
 	data->f_color[0] = -1;
 	data->f_color[1] = -1;
 	data->f_color[2] = -1;
@@ -22,12 +22,22 @@ void	init_data(t_data *data)
 t_data check_data(char *argv, t_game *game)
 {
     t_data data;
+    int len;
 
-    (void)argv;
-    (void)game;
-
+    len = ft_strlen(argv);
     init_data(&data);
-    
-    printf("ta race\n");
+    if (len > 4 && !ft_strcmp(argv + len - 4, ".cub"))
+    {
+        if (!read_map(argv, &data, game))
+        {
+            data.error = 1;
+            return (data);
+        }
+    }
+    else
+    {
+        printf("Error:\nNot a .cub file. Use: ./cub3D maps/[map.cub]\n");
+        exit(EXIT_FAILURE);
+    }
     return (data);
 }
