@@ -145,6 +145,10 @@ t_data check_data(char *argv, t_game *game);
 void	init_data(t_data *data);
 int     read_map(char *map, t_data *data, t_game *game);
 
+//parser_textures.c
+int	valid_map_line(char *line, t_data *data);
+int invalid_or_dup_attr(char *line, t_data *data);
+
 //Exit & free
 void    exit_error(char *info);
 

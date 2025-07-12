@@ -1,8 +1,10 @@
 #include "cub3D.h"
 
+
+/* while loop reads line by line until finding a 1st valid line
+with `valid_map_line(line, data)`*/
 int     read_map(char *map, t_data *data, t_game *game)
 {
-    (void)data;
     (void)game;
     int     fd;
     char    *line;
@@ -13,7 +15,8 @@ int     read_map(char *map, t_data *data, t_game *game)
     line = get_next_line(fd);
     while (line != NULL)
     {
-        //TODO
+        if (valid_map_line(line, data))
+            break ;
         data->reading_pos++;
         free(line);
         line = get_next_line(fd);

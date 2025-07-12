@@ -36,6 +36,7 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parser_data.c \
 		$(SRC_DIR)/exit_n_free.c \
 		$(SRC_DIR)/parser_map.c \
+		$(SRC_DIR)/parser_textures.c\
 
 
 
