@@ -7,6 +7,7 @@ int	valid_map_line(char *line, t_data *data)
         && data->f_color[0] != -1 && data->c_color[0] != -1)
         return (true);
     invalid_or_dup_attr(line, data);
+    //TODO !!!
     return (false);
 }
 
