@@ -21,8 +21,8 @@ int     read_map(char *map, t_data *data, t_game *game)
         free(line);
         line = get_next_line(fd);
     }
-    //if (line == NULL)
-        //exit_error("Error:\nAttributes missing");
+    if (line == NULL)
+        exit_error("Error:\nAttributes missing");
     //TODO
     return (close(fd), true);
 }
