@@ -23,6 +23,8 @@ int     read_map(char *map, t_data *data, t_game *game)
     }
     if (line == NULL)
         exit_error("Error:\nAttributes missing");
-    //TODO
+    map_length(line, fd, map, data);
+    //if (process_map(data, fd, game) == false || data->error)
+        //exit_error("Error:\nMap is not valid");
     return (close(fd), true);
 }

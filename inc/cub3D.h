@@ -151,12 +151,16 @@ int invalid_or_dup_attr(char *line, t_data *data);
 int valid_texture_dir(char *line, t_data *data);
 void    update_data_textures(char *file, t_data *data, char nsew);
 
-//parsser_colors.c
+//parser_colors.c
 int valid_color(char *line, t_data *data);
 int count_commas(char *line);
 char    **split_rgb(char *line, char *linebreak);
 int valid_rgb_params(char **rgb);
 void    update_data_colors(char **rgb, t_data *data, char f_or_c);
+
+//parser_map_valid.c
+void    map_length(char *line, int fd, char *map, t_data *data);
+int is_only_spaces(char *line);
 
 //parser_utils.c
 int file_is_open(char *file);

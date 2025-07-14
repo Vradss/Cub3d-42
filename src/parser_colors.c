@@ -40,7 +40,7 @@ char    **split_rgb(char *line, char *linebreak)
         exit_error("Error:\nMemory allocation failed for color parsing");
     rgb = ft_split(trimmed_line, ',');
     free (trimmed_line);
-    if (!rgb || !rgb[0] || !rgb[1] || rgb[2])
+    if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
         exit_error("Missing RGB parameter(s)");
     return (rgb);
 }

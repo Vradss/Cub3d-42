@@ -3,7 +3,7 @@
 int file_is_open(char *file)
 {
     int fd;
-
+    
     fd = open(file, O_RDONLY);
     if (fd == -1)
     {
