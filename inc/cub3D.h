@@ -8,7 +8,9 @@
 # include <mlx.h>
 # include <math.h>
 # include "../src/gnl/get_next_line.h"
-#include <string.h>
+# include "../libft/libft.h"
+# include <string.h>
+# include <stdbool.h>
 
 
 /* 
@@ -84,6 +86,20 @@ typedef struct s_textures
     int     height;         // Alto texturas
 }   t_textures;
 
+typedef struct s_keys
+{
+	int			key_a;
+	int			key_w;
+	int			key_s;
+	int			key_d;
+	int			key_m;
+	int			key_h;
+	int			key_left;
+	int			key_right;
+	int			key_shift;
+	int			key_space;
+}				t_keys;
+
 typedef struct s_game
 {
     void        *mlx;       // ← IGUAL que so_long
@@ -96,19 +112,64 @@ typedef struct s_game
     t_map       *map;       // ← Adaptado de so_long
     t_player    player;     // ← Adaptado de so_long  
     t_textures  textures;   // ← Nuevo para cub3D
+    t_keys		keys;
+    int			**zbuffer;
+	int			**texture;
 }   t_game;
 
 typedef struct s_data
 {
-    t_game  *game;
-    char    **map;
-} t_data;
+	int			reading_pos;
+	int			error;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			f_color[3];
+	int			c_color[3];
+	int			map_length;
+	size_t		line_size;
+	char		**raw_map;
+  t_game  *game;
+   char    **map;
+  
+}				t_data;
 
 // Functions
 char **read_map_simple(char *filename);
 void find_player(char **map, t_player *player);
 void my_pixel_put(t_game *game, int x, int y, int color);
 void real_raycasting(t_game *game, char **map);
+
+
+// parsing
+t_data check_data(char *argv, t_game *game);
+void	init_data(t_data *data);
+int     read_map(char *map, t_data *data, t_game *game);
+
+//parser_textures.c
+int	valid_map_line(char *line, t_data *data);
+int invalid_or_dup_attr(char *line, t_data *data);
+int valid_texture_dir(char *line, t_data *data);
+void    update_data_textures(char *file, t_data *data, char nsew);
+
+//parser_colors.c
+int valid_color(char *line, t_data *data);
+int count_commas(char *line);
+char    **split_rgb(char *line, char *linebreak);
+int valid_rgb_params(char **rgb);
+void    update_data_colors(char **rgb, t_data *data, char f_or_c);
+
+//parser_map_valid.c
+void    map_length(char *line, int fd, char *map, t_data *data);
+int is_only_spaces(char *line);
+
+//parser_utils.c
+int file_is_open(char *file);
+void    free_array(void **arr);
+
+//Exit & free
+void    exit_error(char *info);
 
 // Movement functions
 void move_forward(t_game *game, char **map);
@@ -117,5 +178,6 @@ void strafe_left(t_game *game, char **map);
 void strafe_right(t_game *game, char **map);
 void rotate_left(t_game *game);
 void rotate_right(t_game *game);
+
 
 #endif
