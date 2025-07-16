@@ -110,6 +110,7 @@ int main(int argc, char **argv)
     mlx_loop(game.mlx);
     
     return (0);
+}
 
 int	init_mlx(t_game *game)
 {
@@ -129,36 +130,4 @@ int	init_mlx(t_game *game)
 	game->img_data = mlx_get_data_addr(game->img, &game->bpp, 
 									 &game->line_len, &game->endian);
 	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_game	game;
-	t_data	data;
-	char	**map;
-
-	if (argc != 2)
-	{
-		printf("Usage: %s map.cub\n", argv[0]);
-		return (1);
-	}
-	map = read_map_simple(argv[1]);
-	if (!map)
-	{
-		printf("Error: Can't read map\n");
-		return (1);
-	}
-	find_player(map, &game.player);
-	if (init_mlx(&game))
-		return (1);
-	printf("Buffer creado: %d bpp, %d line_len\n", game.bpp, game.line_len);
-	data.game = &game;
-	data.map = map;
-	real_raycasting(&game, map);
-	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
-	mlx_key_hook(game.win, key_hook, &data);
-	printf("✅ Todo listo, iniciando loop\n");
-	mlx_loop(game.mlx);
-	return (0);
-
 }
