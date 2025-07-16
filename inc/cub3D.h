@@ -34,7 +34,7 @@ typedef struct s_player
 
 // Teclas (macOS)
 # define ESC_KEY 53
-# define W_KEY 13
+# define W_KEY 119
 # define A_KEY 0
 # define S_KEY 1  
 # define D_KEY 2
@@ -130,8 +130,8 @@ typedef struct s_data
 	int			map_length;
 	size_t		line_size;
 	char		**raw_map;
-  t_game  *game;
-   char    **map;
+    t_game      *game;
+    char        **map;
   
 }				t_data;
 

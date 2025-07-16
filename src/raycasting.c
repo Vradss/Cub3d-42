@@ -1,6 +1,3 @@
-
-#include <cub3D.h>
-
 #include "cub3D.h"
 
 // Función para dibujar línea vertical

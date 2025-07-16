@@ -87,10 +87,10 @@ void find_player(char **map, t_player *player)
                 if (map[y][x] == 'W') { player->dir_x = -1; player->dir_y = 0; }
                 
                 // ✅ Correcto: usar 'player' no 'game'
-                player->plane_x = -player->dir_y * 0.66;
-                player->plane_y = player->dir_x * 0.66;
+                player->plane_x = -player->dir_y * FOV;
+                player->plane_y = player->dir_x * FOV;
                 
-                map[y][x] = '0';
+                //map[y][x] = '0';
                 return;
             }
             x++;
