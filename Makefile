@@ -40,10 +40,7 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parser_utils.c \
 		$(SRC_DIR)/parser_colors.c \
 		$(SRC_DIR)/parser_map_valid.c \
-		
-		
-		
-
+		$(SRC_DIR)/moves.c
 
 
 # Object files 

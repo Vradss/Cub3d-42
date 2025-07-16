@@ -130,15 +130,17 @@ typedef struct s_data
 	int			map_length;
 	size_t		line_size;
 	char		**raw_map;
+  t_game  *game;
+   char    **map;
+  
 }				t_data;
-
-
 
 // Functions
 char **read_map_simple(char *filename);
 void find_player(char **map, t_player *player);
 void my_pixel_put(t_game *game, int x, int y, int color);
 void real_raycasting(t_game *game, char **map);
+
 
 // parsing
 t_data check_data(char *argv, t_game *game);
@@ -168,6 +170,14 @@ void    free_array(void **arr);
 
 //Exit & free
 void    exit_error(char *info);
+
+// Movement functions
+void move_forward(t_game *game, char **map);
+void move_backward(t_game *game, char **map);
+void strafe_left(t_game *game, char **map);
+void strafe_right(t_game *game, char **map);
+void rotate_left(t_game *game);
+void rotate_right(t_game *game);
 
 
 #endif
