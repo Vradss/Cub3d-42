@@ -20,7 +20,8 @@ MLX_DIR = mlx
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+#MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lGL -lm -lbsd
 LFLAGS      = -L $(LIBFT_DIR) -lft
 
 #libft

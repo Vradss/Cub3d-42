@@ -11,9 +11,11 @@ int	valid_map_line(char *line, t_data *data)
         || ft_strncmp(line, "SO ", 3) == 0
         || ft_strncmp(line, "EA ", 3) == 0
         || ft_strncmp(line, "WE ", 3) == 0)
+    {
         if (!valid_texture_dir(line, data))
             return (false);
-	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
+    }
+	else if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
 	{
 		if (!valid_color(line, data))
 			return (false);
