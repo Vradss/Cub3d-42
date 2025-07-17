@@ -29,26 +29,26 @@ typedef struct s_player
 }				t_player; */
 
 
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
+#define WIN_WIDTH 1400
+#define WIN_HEIGHT 1200
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.03
 
 // Teclas (macOS)
-# define ESC_KEY 53
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1  
-# define D_KEY 2
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
+    #define ESC_KEY 65307
+    #define W_KEY 119
+    #define A_KEY 97
+    #define S_KEY 115
+    #define D_KEY 100
+    #define LEFT_ARROW 65361
+    #define RIGHT_ARROW 65363
 
 /* double plane_x = 0.0;   // Plano perpendicular a donde miras
 double plane_y = 0.66;  // ← Este número controla el FOV
                         // 0.66 = FOV normal (como ojo humano)
                         // 1.0 = FOV más amplio
                         // 0.5 = FOV más estrecho */
-#define FOV 0.66
+#define FOV 0.5
 
 typedef struct s_player
 {
