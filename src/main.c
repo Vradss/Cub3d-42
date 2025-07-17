@@ -140,7 +140,8 @@ int main(int argc, char **argv)
     find_player(data.map, &game.player);
 	data.game = &game;
     render_frame(&data);
-    mlx_key_hook(game.win, key_hook, &data);
+    //mlx_key_hook(game.win, key_hook, &data);
+	mlx_hook(game.win, 2, 1L<<0, key_hook, &data);
     mlx_loop(game.mlx);
 	printf("✅ Llegué al final sin crash\n");
     return (0);
