@@ -7,7 +7,7 @@ int file_is_open(char *file)
     fd = open(file, O_RDONLY);
     if (fd == -1)
     {
-        exit_error("Error:\nImpossible to open file");
+        exit_error("Error:Impossible to open file\n");
         return (false);
     }
     close (fd);

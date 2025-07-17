@@ -31,6 +31,8 @@ typedef struct s_player
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
+#define MOVE_SPEED 0.05
+#define ROT_SPEED 0.03
 
 // Teclas (macOS)
 # define ESC_KEY 53
@@ -130,8 +132,8 @@ typedef struct s_data
 	int			map_length;
 	size_t		line_size;
 	char		**raw_map;
-  t_game  *game;
-   char    **map;
+    t_game      *game;
+    char        **map;
   
 }				t_data;
 

@@ -76,20 +76,20 @@ CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	@$(CC) $(CFLAGS) -c $<
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+	@ar rc $(NAME) $(OBJ)
 
 bonus: $(OBJ_B)
-	ar rc $(NAME) $(OBJ_B)
+	@ar rc $(NAME) $(OBJ_B)
 
 clean:
-	rm -rf $(OBJ) $(OBJ_B)
+	@rm -rf $(OBJ) $(OBJ_B)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

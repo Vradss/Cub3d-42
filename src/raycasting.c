@@ -1,6 +1,3 @@
-
-#include <cub3D.h>
-
 #include "cub3D.h"
 
 // Función para dibujar línea vertical
@@ -17,9 +14,40 @@ void draw_vertical_line(t_game *game, int x, int start, int end, int color)
     }
 }
 
+// Función para obtener color de pared según la dirección
+int get_wall_color(int side, int map_x, int map_y)
+{
+    if (side == 0) // Paredes NS
+    {
+        if (map_x % 2 == 0)
+            return 0xFF0000; // Rojo
+        else
+            return 0x00FF00; // Verde
+    }
+    else // Paredes EW
+    {
+        if (map_y % 2 == 0)
+            return 0x0000FF; // Azul
+        else
+            return 0xFFFF00; // Amarillo
+    }
+}
+
 void real_raycasting(t_game *game, char **map)
 {
     int x;
+    
+    // Limpiar pantalla (cielo y suelo)
+    for (int y = 0; y < WIN_HEIGHT; y++)
+    {
+        for (int i = 0; i < WIN_WIDTH; i++)
+        {
+            if (y < WIN_HEIGHT / 2)
+                my_pixel_put(game, i, y, 0x87CEEB); // Azul cielo
+            else
+                my_pixel_put(game, i, y, 0x8B4513); // Marrón suelo
+        }
+    }
     
     x = 0;
     while (x < WIN_WIDTH)
@@ -102,39 +130,31 @@ void real_raycasting(t_game *game, char **map)
         
         // Calcular distancia proyectada en el plano de la cámara
         double perp_wall_dist;
-        
         if (side == 0)
             perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
         else
             perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;
         
-        // Calcular altura de línea a dibujar en pantalla
+        // Calcular altura de la línea a dibujar en pantalla
         int line_height = (int)(WIN_HEIGHT / perp_wall_dist);
         
-        // Calcular punto más alto y más bajo para dibujar en pantalla
+        // Calcular puntos más alto y más bajo para dibujar en pantalla
         int draw_start = -line_height / 2 + WIN_HEIGHT / 2;
         if (draw_start < 0)
             draw_start = 0;
-            
         int draw_end = line_height / 2 + WIN_HEIGHT / 2;
         if (draw_end >= WIN_HEIGHT)
             draw_end = WIN_HEIGHT - 1;
         
-        // Elegir color de pared
-        int color;
+        // Obtener color de la pared
+        int color = get_wall_color(side, map_x, map_y);
+        
+        // Hacer paredes más oscuras si son perpendiculares al eje Y
         if (side == 1)
-            color = 0x00FF0000; // Rojo para paredes EW
-        else
-            color = 0x0000FF00; // Verde para paredes NS
+            color = color / 2;
         
-        // Dibujar techo (negro)
-        draw_vertical_line(game, x, 0, draw_start - 1, 0x00000000);
-        
-        // Dibujar pared
+        // Dibujar línea vertical
         draw_vertical_line(game, x, draw_start, draw_end, color);
-        
-        // Dibujar suelo (gris)
-        draw_vertical_line(game, x, draw_end + 1, WIN_HEIGHT - 1, 0x00808080);
         
         x++;
     }

@@ -10,6 +10,13 @@ void	my_pixel_put(t_game *game, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	render_frame(t_data *data)
+{
+	real_raycasting(data->game, data->map);
+	mlx_put_image_to_window(data->game->mlx, data->game->win,
+		data->game->img, 0, 0);
+}
+
 int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == ESC_KEY)
@@ -26,14 +33,14 @@ int	key_hook(int keycode, t_data *data)
 		rotate_left(data->game);
 	else if (keycode == RIGHT_ARROW)
 		rotate_right(data->game);
-	real_raycasting(data->game, data->map);
-	mlx_put_image_to_window(data->game->mlx, data->game->win, 
-						   data->game->img, 0, 0);
+	else
+		return (0);
+	render_frame(data);
 	return (0);
 }
 
 
-void	init_vars(t_game *game)
+/*void	init_vars(t_game *game)
 {
 	game->player.plane_x = 0.0;
 	game->player.plane_y = 0.66;
@@ -44,72 +51,37 @@ void	init_vars(t_game *game)
 	game->keys.key_left = 0;
 	game->keys.key_right = 0;
 	game->keys.key_shift = 0;
-	game->map->grid = NULL; // CHECK THIS
+	game->map = malloc(sizeof(t_map));
+	if (game->map)
+		game->map->grid = NULL;
 	game->zbuffer = NULL;
 	game->texture = NULL;
-}
+}*/
 
-int main(int argc, char **argv)
+void init_vars(t_game *game)
 {
-    t_game game;
-	t_data data;
-
-    if (argc == 2)
-    {
-        // init MLX
-        // init vars
-        data = check_data(argv[1], &game);
-        printf("NO texture: %s\n", data.no);
-        // go to game: game_main(&game, &data);
-    }
-    else
-    {
-        printf("Error:\nWrong nb of args. Use: ./cub3D maps/[map.cub]\n");
-        exit(EXIT_FAILURE);
-    }
+    // Inicializar jugador en valores por defecto
+    game->player.x = 0.0;
+    game->player.y = 0.0;
+    game->player.dir_x = -1.0;
+    game->player.dir_y = 0.0;
+    game->player.plane_x = 0.0;
+    game->player.plane_y = FOV;
     
-    // Leer mapa
-    char **map = read_map_simple(argv[1]);
-    if (!map)
-    {
-        printf("Error: Can't read map\n");
-        return (1);
-    }
+    // Inicializar mapa
+    game->map = malloc(sizeof(t_map));
+    if (!game->map)
+        exit_error("Error:\nMemory allocation failed");
+    game->map->grid = NULL;
     
-    // Encontrar jugador
-    find_player(map, &game.player);
-        
-    // Init MLX
-    game.mlx = mlx_init();
-    if (!game.mlx)
-    {
-        printf("Error: MLX init failed\n");
-        return (1);
-    }
-    
-    game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D test");
-    if (!game.win)
-    {
-        printf("Error: Window creation failed\n");
-        return (1);
-    }
-    
-    // Crear buffer de imagen
-    game.img = mlx_new_image(game.mlx, WIN_WIDTH, WIN_HEIGHT);
-    game.img_data = mlx_get_data_addr(game.img, &game.bpp, &game.line_len, &game.endian);
-    
-    printf("Buffer creado: %d bpp, %d line_len\n", game.bpp, game.line_len);
-    
-    
-    real_raycasting(&game, map);
-    mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
-    
-    mlx_key_hook(game.win, key_hook, &game);
-    
-    printf("✅ Todo listo, iniciando loop\n");
-    mlx_loop(game.mlx);
-    
-    return (0);
+    // Inicializar otros valores
+    game->mlx = NULL;
+    game->win = NULL;
+    game->img = NULL;
+    game->img_data = NULL;
+    game->texture = NULL;
+    game->zbuffer = NULL;
+}
 
 int	init_mlx(t_game *game)
 {
@@ -131,34 +103,46 @@ int	init_mlx(t_game *game)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_game	game;
-	t_data	data;
-	char	**map;
+    t_game game = {0};
+	t_data data;
 
-	if (argc != 2)
+    if (argc != 2)
+    {
+        printf("Error:\nWrong nb of args. Use: ./cub3D maps/[map.cub]\n");
+        exit(EXIT_FAILURE);
+    }
+	init_vars(&game);
+    // Leer mapa
+	data = check_data(argv[1], &game);
+	if (data.error)
 	{
-		printf("Usage: %s map.cub\n", argv[0]);
-		return (1);
+		printf("Error: parsing");
+		return 1;
 	}
-	map = read_map_simple(argv[1]);
-	if (!map)
-	{
-		printf("Error: Can't read map\n");
+    // Init MLX
+	if (init_mlx(&game) != 0)
 		return (1);
-	}
-	find_player(map, &game.player);
-	if (init_mlx(&game))
-		return (1);
-	printf("Buffer creado: %d bpp, %d line_len\n", game.bpp, game.line_len);
+
+	if (!data.map)
+    {
+        // Fallback: usar read_map_simple si data.map es NULL
+		printf("Error: Parser didn't create map. Using fallback...\n");
+        data.map = read_map_simple(argv[1]);
+        if (!data.map)
+        {
+            printf("Error: Can't read map\n");
+            return (1);
+        }
+    }
+    // Encontrar jugador
+    find_player(data.map, &game.player);
 	data.game = &game;
-	data.map = map;
-	real_raycasting(&game, map);
-	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
-	mlx_key_hook(game.win, key_hook, &data);
-	printf("✅ Todo listo, iniciando loop\n");
-	mlx_loop(game.mlx);
-	return (0);
-
+    render_frame(&data);
+    mlx_key_hook(game.win, key_hook, &data);
+    mlx_loop(game.mlx);
+	printf("✅ Llegué al final sin crash\n");
+    return (0);
 }
+

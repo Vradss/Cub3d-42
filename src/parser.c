@@ -64,37 +64,59 @@ char **read_map_simple(char *filename)
     return (map);
 }
 
+// En tu función find_player, asegúrate de inicializar correctamente:
 void find_player(char **map, t_player *player)
 {
-    int y = 0;
-    int x;
+    int i = 0;
+    int j;
     
-    while (map[y])
+    while (map[i])
     {
-        x = 0;
-        while (map[y][x])
+        j = 0;
+        while (map[i][j])
         {
-            if (map[y][x] == 'N' || map[y][x] == 'S' || 
-                map[y][x] == 'E' || map[y][x] == 'W')
+            if (map[i][j] == 'N' || map[i][j] == 'S' || 
+                map[i][j] == 'E' || map[i][j] == 'W')
             {
-                player->x = x + 0.5;
-                player->y = y + 0.5;
+                player->x = (double)j + 0.5;
+                player->y = (double)i + 0.5;
                 
-                // Establecer dirección según orientación
-                if (map[y][x] == 'N') { player->dir_x = 0; player->dir_y = -1; }
-                if (map[y][x] == 'S') { player->dir_x = 0; player->dir_y = 1; }
-                if (map[y][x] == 'E') { player->dir_x = 1; player->dir_y = 0; }
-                if (map[y][x] == 'W') { player->dir_x = -1; player->dir_y = 0; }
+                // Inicializar dirección según orientación
+                if (map[i][j] == 'N')
+                {
+                    player->dir_x = 0.0;
+                    player->dir_y = -1.0;
+                    player->plane_x = 0.66;
+                    player->plane_y = 0.0;
+                }
+                else if (map[i][j] == 'S')
+                {
+                    player->dir_x = 0.0;
+                    player->dir_y = 1.0;
+                    player->plane_x = -0.66;
+                    player->plane_y = 0.0;
+                }
+                else if (map[i][j] == 'E')
+                {
+                    player->dir_x = 1.0;
+                    player->dir_y = 0.0;
+                    player->plane_x = 0.0;
+                    player->plane_y = 0.66;
+                }
+                else if (map[i][j] == 'W')
+                {
+                    player->dir_x = -1.0;
+                    player->dir_y = 0.0;
+                    player->plane_x = 0.0;
+                    player->plane_y = -0.66;
+                }
                 
-                // ✅ Correcto: usar 'player' no 'game'
-                player->plane_x = -player->dir_y * 0.66;
-                player->plane_y = player->dir_x * 0.66;
-                
-                map[y][x] = '0';
+                // Reemplazar jugador con espacio vacío
+                map[i][j] = '0';
                 return;
             }
-            x++;
+            j++;
         }
-        y++;
+        i++;
     }
 }
