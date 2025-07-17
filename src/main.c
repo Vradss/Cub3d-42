@@ -58,13 +58,29 @@ int	key_hook(int keycode, t_data *data)
 	game->texture = NULL;
 }*/
 
-void	init_vars(t_game *game)
+void init_vars(t_game *game)
 {
-	game->player.plane_y = FOV;
-	game->map = malloc(sizeof(t_map));
-	if (!game->map)
-		exit_error("Error:\nMemory allocation failed");
-	game->map->grid = NULL;
+    // Inicializar jugador en valores por defecto
+    game->player.x = 0.0;
+    game->player.y = 0.0;
+    game->player.dir_x = -1.0;
+    game->player.dir_y = 0.0;
+    game->player.plane_x = 0.0;
+    game->player.plane_y = FOV;
+    
+    // Inicializar mapa
+    game->map = malloc(sizeof(t_map));
+    if (!game->map)
+        exit_error("Error:\nMemory allocation failed");
+    game->map->grid = NULL;
+    
+    // Inicializar otros valores
+    game->mlx = NULL;
+    game->win = NULL;
+    game->img = NULL;
+    game->img_data = NULL;
+    game->texture = NULL;
+    game->zbuffer = NULL;
 }
 
 int	init_mlx(t_game *game)

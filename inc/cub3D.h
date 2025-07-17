@@ -31,10 +31,12 @@ typedef struct s_player
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
+#define MOVE_SPEED 0.05
+#define ROT_SPEED 0.03
 
 // Teclas (macOS)
 # define ESC_KEY 53
-# define W_KEY 119
+# define W_KEY 13
 # define A_KEY 0
 # define S_KEY 1  
 # define D_KEY 2
