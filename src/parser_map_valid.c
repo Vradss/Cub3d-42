@@ -125,6 +125,7 @@ int check_n_init_map(t_data *data, int i, t_game *game)
         pos++;
     }
     game->map->map = data->raw_map;
+    data->map = game->map->map;
     return (true);
 }
 
