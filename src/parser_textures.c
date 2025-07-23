@@ -6,21 +6,25 @@ int	valid_map_line(char *line, t_data *data)
 		&& ft_strcmp(data->we, "X") && ft_strcmp(data->ea, "X")
 		&& data->f_color[0] != -1 && data->c_color[0] != -1)
 		return (true);
-    invalid_or_dup_attr(line, data);
-    if (ft_strncmp(line, "NO ", 3) == 0
-        || ft_strncmp(line, "SO ", 3) == 0
-        || ft_strncmp(line, "EA ", 3) == 0
-        || ft_strncmp(line, "WE ", 3) == 0)
-        if (!valid_texture_dir(line, data))
+
+        invalid_or_dup_attr(line, data);
+
+        if (ft_strncmp(line, "NO ", 3) == 0
+            || ft_strncmp(line, "SO ", 3) == 0
+            || ft_strncmp(line, "EA ", 3) == 0
+            || ft_strncmp(line, "WE ", 3) == 0)
+        {
+            if (!valid_texture_dir(line, data))
+                return (false);
             return (false);
-	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
-	{
-		if (!valid_color(line, data))
-			return (false);
-	}
-	else
+        }
+        if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
+        {
+            if (!valid_color(line, data))
+                return (false);
+            return (false);
+        }
         return (false);
-    return (false);
 }
 
 int invalid_or_dup_attr(char *line, t_data *data)

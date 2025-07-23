@@ -3,6 +3,7 @@
 void	init_data(t_data *data)
 {
 	data->raw_map = NULL;
+    data->map = NULL;
 	data->no = ft_strdup("X");
 	data->so = ft_strdup("X");
 	data->we = ft_strdup("X");
