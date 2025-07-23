@@ -56,6 +56,8 @@ typedef struct s_player
     double  y;          // Posición Y  
     double  dir_x;      // Dirección de vista X
     double  dir_y;      // Dirección de vista Y
+    double  pos_x;
+    double  pos_y;
     double  plane_x;    // Plano de cámara X (para Field of view FOV)
     double  plane_y;    // Plano de cámara Y
 }   t_player;
@@ -72,6 +74,7 @@ typedef struct s_map
     char    *east_tex;      // ← NUEVO: ruta textura este
     int     floor_color;    // ← NUEVO: color suelo RGB
     int     ceiling_color;  // ← NUEVO: color techo RGB
+    char    **map;
 }   t_map;
 
 typedef struct s_textures
@@ -163,8 +166,18 @@ int valid_rgb_params(char **rgb);
 void    update_data_colors(char **rgb, t_data *data, char f_or_c);
 
 //parser_map_valid.c
-void    map_length(char *line, int fd, char *map, t_data *data);
-int is_only_spaces(char *line);
+void        map_length(char *line, int fd, char *map, t_data *data);
+int         is_only_spaces(char *line);
+int         process_map(t_data *data, int fd, t_game *game);
+char        *adjust_map_line(char *content, t_data *data);
+int         check_n_init_map(t_data *data, int i, t_game *game);
+void        get_player_position(char **map, t_game *game);
+void        init_pos_player(t_game *game, char **map, int x, int y);
+bool	    check_player_in_walls(char **map, int size);
+bool        exec_check(t_data *data, t_game *game, int i, char **backup_map);
+int         check_dup_players(char  letter, char yes_or_no);
+int         valid_char_in_map(char *line);
+
 
 //parser_utils.c
 int file_is_open(char *file);
