@@ -39,25 +39,6 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-
-/*void	init_vars(t_game *game)
-{
-	game->player.plane_x = 0.0;
-	game->player.plane_y = 0.66;
-	game->keys.key_w = 0;
-	game->keys.key_a = 0;
-	game->keys.key_s = 0;
-	game->keys.key_d = 0;
-	game->keys.key_left = 0;
-	game->keys.key_right = 0;
-	game->keys.key_shift = 0;
-	game->map = malloc(sizeof(t_map));
-	if (game->map)
-		game->map->grid = NULL;
-	game->zbuffer = NULL;
-	game->texture = NULL;
-}*/
-
 void init_vars(t_game *game)
 {
     // Inicializar jugador en valores por defecto
@@ -72,7 +53,7 @@ void init_vars(t_game *game)
     game->map = malloc(sizeof(t_map));
     if (!game->map)
         exit_error("Error:\nMemory allocation failed");
-    game->map->grid = NULL;
+    game->map->map = NULL;
     
     // Inicializar otros valores
     game->mlx = NULL;
@@ -114,35 +95,25 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 	init_vars(&game);
-    // Leer mapa
 	data = check_data(argv[1], &game);
 	if (data.error)
 	{
-		printf("Error: parsing");
+		printf("Error: parsing failed");
 		return 1;
 	}
+	if (!data.map)
+    {
+        printf("Error: Map not loaded correctly\n");
+        return (1);
+    }
     // Init MLX
 	if (init_mlx(&game) != 0)
 		return (1);
-
-	if (!data.map)
-    {
-        // Fallback: usar read_map_simple si data.map es NULL
-		printf("Error: Parser didn't create map. Using fallback...\n");
-        data.map = read_map_simple(argv[1]);
-        if (!data.map)
-        {
-            printf("Error: Can't read map\n");
-            return (1);
-        }
-    }
-    // Encontrar jugador
-    find_player(data.map, &game.player);
 	data.game = &game;
     render_frame(&data);
-    mlx_key_hook(game.win, key_hook, &data);
+	mlx_hook(game.win, 2, 1L<<0, key_hook, &data);
     mlx_loop(game.mlx);
-	printf("✅ Llegué al final sin crash\n");
+	printf("✅ Program finished successfully\n");
     return (0);
 }
 

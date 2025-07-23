@@ -109,9 +109,12 @@ int check_n_init_map(t_data *data, int i, t_game *game)
     pos = 0;
     flag = 0;
     data->raw_map[i] = NULL;
-    game->map = malloc(sizeof(t_map));
     if (!game->map)
-	    exit_error("Error:\nMalloc failed");
+    {
+        game->map = malloc(sizeof(t_map));
+        if(!game->map)
+            exit_error("Error:\nMalloc failed");
+    }
     if (check_dup_players(' ', 'Y'))
         return (false);
     get_player_position(data->raw_map, game); //TODO
@@ -125,7 +128,7 @@ int check_n_init_map(t_data *data, int i, t_game *game)
         pos++;
     }
     game->map->map = data->raw_map;
-    data->map = game->map->map;
+    data->map = data->raw_map;
     return (true);
 }
 
@@ -142,8 +145,8 @@ void    get_player_position(char **map, t_game *game)
         {
             if (ft_strchr("NESW", map[y][x]) != NULL)
             {
-			    game->player.pos_x = x + 0.5;
-			    game->player.pos_y = y + 0.5;
+			    game->player.x = x + 0.5;
+			    game->player.y = y + 0.5;
 			    game->player.dir_x = 0;
 			    game->player.dir_y = -1;
                 init_pos_player(game, map, x, y);
@@ -164,24 +167,33 @@ void    init_pos_player(t_game *game, char **map, int x, int y)
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = -1;
+        game->player.plane_x = FOV;
+        game->player.plane_y = 0.0;
+
 	}
     else if (pos == 'S')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;
+        game->player.plane_x = FOV;
+        game->player.plane_y = 0.0;
+        
 	}
     else if (pos == 'E')
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
+        game->player.plane_x = FOV;
+        game->player.plane_y = 0.0;
 	}
     else if (pos == 'W')
 	{
 		game->player.dir_x = -1;
 		game->player.dir_y = 0;
+        game->player.plane_x = FOV;
+        game->player.plane_y = 0.0;
 	}
-	game->player.plane_x = game->player.dir_y * 0.66;
-	game->player.plane_y = -game->player.dir_x * 0.66;
+    map[y][x] = '0';
 }
 
 static bool	check_all_closed(int x, int y, char **map, int size)
@@ -320,7 +332,7 @@ int valid_char_in_map(char *line)
             else if (letter == '\0')
                 return (true);
             else
-                exit_error("Error\nInvalid caracter");
+                exit_error("Error\nInvalid character");
     }
     return (true);
 }

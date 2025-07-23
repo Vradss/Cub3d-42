@@ -56,8 +56,6 @@ typedef struct s_player
     double  y;          // Posición Y  
     double  dir_x;      // Dirección de vista X
     double  dir_y;      // Dirección de vista Y
-    double  pos_x;
-    double  pos_y;
     double  plane_x;    // Plano de cámara X (para Field of view FOV)
     double  plane_y;    // Plano de cámara Y
 }   t_player;
@@ -142,7 +140,7 @@ typedef struct s_data
 
 // Functions
 char **read_map_simple(char *filename);
-void find_player(char **map, t_player *player);
+// void find_player(char **map, t_player *player);
 void my_pixel_put(t_game *game, int x, int y, int color);
 void real_raycasting(t_game *game, char **map);
 
