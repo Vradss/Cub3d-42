@@ -155,6 +155,7 @@ int	valid_map_line(char *line, t_data *data);
 int invalid_or_dup_attr(char *line, t_data *data);
 int valid_texture_dir(char *line, t_data *data);
 void    update_data_textures(char *file, t_data *data, char nsew);
+int normalize_line(char *line);
 
 //parser_colors.c
 int valid_color(char *line, t_data *data);

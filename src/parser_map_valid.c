@@ -72,7 +72,7 @@ static int  read_map_lines(t_data *data, int fd, char *line, char **backup_map)
         line = get_next_line(fd);
     }
     free(line);
-    return (exec_check(data, data->game, i, backup_map)); //TODO
+    return (exec_check(data, data->game, i, backup_map));
 }
 
 char    *adjust_map_line(char *content, t_data *data)

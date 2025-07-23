@@ -6,7 +6,7 @@ int	valid_map_line(char *line, t_data *data)
 		&& ft_strcmp(data->we, "X") && ft_strcmp(data->ea, "X")
 		&& data->f_color[0] != -1 && data->c_color[0] != -1)
 		return (true);
-
+        normalize_line(line);
         invalid_or_dup_attr(line, data);
 
         if (ft_strncmp(line, "NO ", 3) == 0
@@ -26,6 +26,38 @@ int	valid_map_line(char *line, t_data *data)
         }
         return (false);
 }
+
+int normalize_line(char *line)
+{
+    int i;
+    int j;
+    int space;
+    
+    i = 0;
+    j = 0;
+    space = 0;
+
+    while (line[i] == ' ' || line[i] == '\t')
+        i++;
+    while (line[i])
+    {
+        if (line[i] == ' ' || line[i] == '\t')
+            space = 1;
+        else
+        {
+            if (space && j > 0)
+                line[j++] = ' ';
+            line[j++] = line[i];
+            space = 0;
+        }
+        i++;
+    }
+    if (j > 0 && line[j - 1] == ' ')
+        j--;
+    line[j] = '\0';
+    return 1;
+}
+
 
 int invalid_or_dup_attr(char *line, t_data *data)
 {
