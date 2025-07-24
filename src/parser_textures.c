@@ -29,35 +29,42 @@ int	valid_map_line(char *line, t_data *data)
 
 int normalize_line(char *line)
 {
-    int i;
-    int j;
-    int space;
-    
-    i = 0;
-    j = 0;
-    space = 0;
+	int i = 0, j = 0, space = 0;
 
-    while (line[i] == ' ' || line[i] == '\t')
-        i++;
-    while (line[i])
-    {
-        if (line[i] == ' ' || line[i] == '\t')
-            space = 1;
-        else
-        {
-            if (space && j > 0)
-                line[j++] = ' ';
-            line[j++] = line[i];
-            space = 0;
-        }
-        i++;
-    }
-    if (j > 0 && line[j - 1] == ' ')
-        j--;
-    line[j] = '\0';
-    return 1;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			space = 1;
+		else if (handle_char(line, &i, &j, &space))
+			continue;
+		i++;
+	}
+	if (j > 0 && line[j - 1] == ' ')
+		j--;
+	line[j] = '\0';
+	return (1);
 }
 
+int handle_char(char *line, int *i, int *j, int *space)
+{
+	if (line[*i] == ',')
+	{
+		while (*j > 0 && line[*j - 1] == ' ')
+			(*j)--;
+		line[(*j)++] = ',';
+		(*i)++;
+		while (line[*i] == ' ' || line[*i] == '\t')
+			(*i)++;
+		return (1);
+	}
+	if (*space && *j > 0)
+		line[(*j)++] = ' ';
+	line[(*j)++] = line[*i];
+	*space = 0;
+	return (0);
+}
 
 int invalid_or_dup_attr(char *line, t_data *data)
 {
