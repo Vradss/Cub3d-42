@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:06:42 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/24 12:20:00 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/24 14:40:58 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * @brief Clears the screen background with sky and floor colors
  * @param game Pointer to game structure containing image data
- * 
- * This function fills the screen buffer with sky (upper half) and floor 
+ *
+ * This function fills the screen buffer with sky (upper half) and floor
  * (lower half) colors using only WHILE loops as per Norminette rules.
  */
 static void	clear_screen_background(t_game *game)
@@ -45,7 +45,7 @@ static void	clear_screen_background(t_game *game)
  * @param game Pointer to game structure containing player data
  * @param x Current screen column being processed
  * @param ray Pointer to ray structure to initialize
- * 
+ *
  * Calculates the ray direction based on player position and camera plane.
  * Sets up initial DDA variables for wall detection algorithm.
  */
@@ -71,7 +71,7 @@ static void	init_ray_data(t_game *game, int x, t_ray *ray)
  * @brief Calculates step direction and initial side distances for DDA
  * @param game Pointer to game structure containing player position
  * @param ray Pointer to ray structure with direction data
- * 
+ *
  * Determines which direction to step in (positive or negative) and calculates
  * the initial distances to the next grid lines in both X and Y directions.
  */
@@ -85,7 +85,7 @@ static void	calculate_step_and_side_dist(t_game *game, t_ray *ray)
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist_x = (ray->map_x + 1.0 - game->player.x) 
+		ray->side_dist_x = (ray->map_x + 1.0 - game->player.x)
 			* ray->delta_dist_x;
 	}
 	if (ray->dir_y < 0)
@@ -96,7 +96,7 @@ static void	calculate_step_and_side_dist(t_game *game, t_ray *ray)
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist_y = (ray->map_y + 1.0 - game->player.y) 
+		ray->side_dist_y = (ray->map_y + 1.0 - game->player.y)
 			* ray->delta_dist_y;
 	}
 }
@@ -105,7 +105,7 @@ static void	calculate_step_and_side_dist(t_game *game, t_ray *ray)
  * @brief Performs DDA algorithm to detect wall collision
  * @param map 2D character array representing the game map
  * @param ray Pointer to ray structure containing DDA variables
- * 
+ *
  * Uses Digital Differential Analyzer algorithm to step through the grid
  * until a wall ('1') is hit. Updates ray position and side information.
  */
@@ -137,18 +137,18 @@ static void	perform_dda_algorithm(char **map, t_ray *ray)
  * @brief Calculates perpendicular wall distance and line height
  * @param game Pointer to game structure containing player position
  * @param ray Pointer to ray structure with collision data
- * 
+ *
  * Computes the perpendicular distance to avoid fisheye effect and
  * calculates the height of the wall line to be drawn on screen.
  */
 static void	calculate_wall_distance(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->map_x - game->player.x 
-				+ (1 - ray->step_x) / 2) / ray->dir_x;
+		ray->perp_wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x)
+				/ 2) / ray->dir_x;
 	else
-		ray->perp_wall_dist = (ray->map_y - game->player.y 
-				+ (1 - ray->step_y) / 2) / ray->dir_y;
+		ray->perp_wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y)
+				/ 2) / ray->dir_y;
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
@@ -162,7 +162,7 @@ static void	calculate_wall_distance(t_game *game, t_ray *ray)
  * @brief Calculates texture coordinates for wall mapping
  * @param game Pointer to game structure containing player position
  * @param ray Pointer to ray structure with wall data
- * 
+ *
  * Determines the exact point where the ray hit the wall and calculates
  * the corresponding X coordinate in the texture (0.0 to 1.0).
  */
@@ -185,7 +185,7 @@ static void	calculate_texture_coordinates(t_game *game, t_ray *ray)
  * @param game Pointer to game structure containing image buffer
  * @param x Screen column to draw on
  * @param ray Pointer to ray structure with drawing parameters
- * 
+ *
  * Draws a vertical line representing a wall slice using real texture data.
  * Applies proper texture mapping and shading for depth perception.
  */
@@ -206,8 +206,8 @@ static void	render_textured_wall_line(t_game *game, int x, t_ray *ray)
 	{
 		tex_y = (int)tex_pos & (game->textures.height - 1);
 		tex_pos += step;
-		color = get_texture_pixel(texture_data, ray->tex_x, tex_y, 
-									game->textures.width);
+		color = get_texture_pixel(texture_data, ray->tex_x, tex_y,
+				game->textures.width);
 		if (ray->side == 1)
 			color = (color >> 1) & 8355711;
 		my_pixel_put(game, x, y, color);
@@ -219,7 +219,7 @@ static void	render_textured_wall_line(t_game *game, int x, t_ray *ray)
  * @brief Main raycasting function that renders the 3D textured view
  * @param game Pointer to game structure containing all game data
  * @param map 2D character array representing the game map
- * 
+ *
  * This is the main raycasting loop that:
  * 1. Clears the background with sky and floor
  * 2. Casts a ray for each screen column
