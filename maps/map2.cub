@@ -1,9 +1,10 @@
-NO /dev/null
-SO /dev/null  
-WE /dev/null
-EA /dev/null
-F 220,100,0
-C 225,30,0
+NO ./textures/stone.xpm
+SO ./textures/stone_w_b.xpm
+WE ./textures/blue2.xpm   
+EA ./textures/stone_blue.xpm
+
+F 101,67,33
+C 150,200,230
 
 1111111111111111111111111111
 1000000000110000000000000001
