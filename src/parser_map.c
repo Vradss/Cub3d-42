@@ -5,7 +5,6 @@
 with `valid_map_line(line, data)`*/
 int     read_map(char *map, t_data *data, t_game *game)
 {
-    (void)game;
     int     fd;
     char    *line;
 

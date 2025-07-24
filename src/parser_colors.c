@@ -88,3 +88,4 @@ void    update_data_colors(char **rgb, t_data *data, char f_or_c)
     }
     free_array((void **)rgb);
 }
+
