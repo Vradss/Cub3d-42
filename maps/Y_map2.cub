@@ -1,5 +1,5 @@
-NO ./textures/crack.xpm
-SO ./textures/stone_w_b.xpm    
+NO ./textures/stone.xpm
+SO ./textures/stone_w_b.xpm
 WE ./textures/blue2.xpm   
 EA ./textures/stone_blue.xpm
 

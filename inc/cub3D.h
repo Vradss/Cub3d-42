@@ -147,45 +147,53 @@ char		**read_map_simple(char *filename);
 void		my_pixel_put(t_game *game, int x, int y, int color);
 void		real_raycasting(t_game *game, char **map);
 
-// parsing
-t_data	check_data(char *argv, t_game *game);
+////// parsing //////
+
+//parser_data.c
+t_data		check_data(char *argv, t_game *game);
 void		init_data(t_data *data);
 int			read_map(char *map, t_data *data, t_game *game);
+int	    	valid_map_line(char *line, t_data *data);
+
+//parser_map.c
+int     	process_map(t_data *data, int fd, t_game *game);
+char		*skip_to_map_start(int fd, int target);
+int			read_map_lines(t_data *data, int fd, char *line, char **backup_map);
+char    	*adjust_map_line(char *content, t_data *data);
+int     	valid_char_in_map(char *line);
 
 //parser_textures.c
-int	    valid_map_line(char *line, t_data *data);
-int     invalid_or_dup_attr(char *line, t_data *data);
-int     valid_texture_dir(char *line, t_data *data);
-void    update_data_textures(char *file, t_data *data, char nsew);
-int     normalize_line(char *line);
-int     handle_char(char *line, int *i, int *j, int *space);
+int     	invalid_or_dup_attr(char *line, t_data *data);
+int     	valid_texture_dir(char *line, t_data *data);
+void    	update_data_textures(char *file, t_data *data, char nsew);
+int     	normalize_line(char *line);
+int     	handle_char(char *line, int *i, int *j, int *space);
 
 //parser_colors.c
-int     valid_color(char *line, t_data *data);
-int     count_commas(char *line);
-char    **split_rgb(char *line, char *linebreak);
-int     valid_rgb_params(char **rgb);
-void    update_data_colors(char **rgb, t_data *data, char f_or_c);
+int     	valid_color(char *line, t_data *data);
+int     	count_commas(char *line);
+char    	**split_rgb(char *line, char *linebreak);
+int     	valid_rgb_params(char **rgb);
+void    	update_data_colors(char **rgb, t_data *data, char f_or_c);
+
+//parser_players.c
+int     	check_dup_players(char  letter, char yes_or_no);
+bool    	check_player_in_walls(char **map, int size);
+void    	get_player_position(char **map, t_game *game);
+void    	init_pos_player(t_game *game, char **map, int x, int y);
 
 //parser_map_valid.c
-void    map_length(char *line, int fd, char *map, t_data *data);
-int     is_only_spaces(char *line);
-int     process_map(t_data *data, int fd, t_game *game);
-char    *adjust_map_line(char *content, t_data *data);
-int     check_n_init_map(t_data *data, int i, t_game *game);
-void    get_player_position(char **map, t_game *game);
-void    init_pos_player(t_game *game, char **map, int x, int y);
-bool    check_player_in_walls(char **map, int size);
-bool    exec_check(t_data *data, t_game *game, int i, char **backup_map);
-int     check_dup_players(char  letter, char yes_or_no);
-int     valid_char_in_map(char *line);
+int     	check_n_init_map(t_data *data, int i, t_game *game);
+bool    	exec_check(t_data *data, t_game *game, int i, char **backup_map);
 
 // parser_utils.c
 int			file_is_open(char *file);
-void		free_array(void **arr);
+void    	map_length(char *line, int fd, char *map, t_data *data);
+int     	is_only_spaces(char *line);
 
 // Exit & free
 void		exit_error(char *info);
+void		free_array(void **arr);
 
 // Movement functions
 void		move_forward(t_game *game, char **map);
