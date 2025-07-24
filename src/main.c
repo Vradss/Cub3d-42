@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
+/*   Updated: 2025/07/24 13:36:31 by vrads            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	my_pixel_put(t_game *game, int x, int y, int color)
@@ -97,18 +109,13 @@ int main(int argc, char **argv)
 	init_vars(&game);
 	data = check_data(argv[1], &game);
 	if (data.error)
-	{
-		printf("Error: parsing failed");
-		return 1;
-	}
+		return (printf("Error: parsing failed"), 1);
 	if (!data.map)
-    {
-        printf("Error: Map not loaded correctly\n");
-        return (1);
-    }
-    // Init MLX
+        return(printf("Error: Map not loaded correctly\n"),1);
 	if (init_mlx(&game) != 0)
 		return (1);
+	if (!load_wall_textures(&game, &data))
+		return(printf("Error: Failed to load textures\n"),1);
 	data.game = &game;
     render_frame(&data);
 	mlx_hook(game.win, 2, 1L<<0, key_hook, &data);

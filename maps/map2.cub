@@ -1,7 +1,8 @@
-NO /dev/null
-SO /dev/null  
-WE /dev/null
-EA /dev/null
+NO ./textures/stone.xpm
+SO ./textures/stone_w_b.xpm
+WE ./textures/blue2.xpm   
+EA ./textures/stone_blue.xpm
+
 F 220,100,0
 C 225,30,0
 

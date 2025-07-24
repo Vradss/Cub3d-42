@@ -1,7 +1,7 @@
-NO ./textures/trial_images/lvl1/stone.xpm
-SO ./textures/trial_images/lvl1/stone_w_b.xpm
-WE ./textures/trial_images/lvl1/blue2.xpm   
-EA ./textures/trial_images/lvl1/stone_blue.xpm
+NO ./textures/stone.xpm
+SO ./textures/stone_w_b.xpm
+WE ./textures/blue2.xpm   
+EA ./textures/stone_blue.xpm
 
 F 20,20,20
 C 22,0,44

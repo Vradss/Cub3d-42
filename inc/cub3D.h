@@ -138,6 +138,28 @@ typedef struct s_data
   
 }				t_data;
 
+
+typedef struct s_ray
+{
+    double  dir_x;          // Ray direction X component
+    double  dir_y;          // Ray direction Y component
+    int     map_x;          // Current X position in map grid
+    int     map_y;          // Current Y position in map grid
+    double  delta_dist_x;   // Distance ray travels for 1 X-side unit
+    double  delta_dist_y;   // Distance ray travels for 1 Y-side unit
+    double  side_dist_x;    // Distance from current pos to next X-side
+    double  side_dist_y;    // Distance from current pos to next Y-side
+    int     step_x;         // Direction to step in X (+1 or -1)
+    int     step_y;         // Direction to step in Y (+1 or -1)
+    int     side;           // Wall side hit (0=NS wall, 1=EW wall)
+    double  perp_wall_dist; // Perpendicular distance to wall
+    int     line_height;    // Height of wall line to draw
+    int     draw_start;     // Start pixel for wall line
+    int     draw_end;       // End pixel for wall line
+    double  wall_x;         // Exact hit point on wall (0.0 to 1.0)
+    int     tex_x;          // X coordinate in texture
+}           t_ray;
+
 // Functions
 char **read_map_simple(char *filename);
 // void find_player(char **map, t_player *player);
@@ -191,6 +213,11 @@ void strafe_left(t_game *game, char **map);
 void strafe_right(t_game *game, char **map);
 void rotate_left(t_game *game);
 void rotate_right(t_game *game);
+
+// Texture loading functions
+int		load_wall_textures(t_game *game, t_data *data);
+int		get_texture_pixel(int *texture_data, int x, int y, int tex_width);
+int		*get_wall_texture(t_game *game, int side, double ray_dir_x, double ray_dir_y);
 
 
 #endif
