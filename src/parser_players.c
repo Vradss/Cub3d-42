@@ -6,7 +6,7 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 20:16:27 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/24 20:47:42 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:36:14 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,33 +118,26 @@ void	init_pos_player(t_game *game, char **map, int x, int y)
 	char	pos;
 
 	pos = map[y][x];
+	game->player.plane_x = FOV;
+	game->player.plane_y = 0.0;
 	if (pos == 'N')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = -1;
-		game->player.plane_x = FOV;
-		game->player.plane_y = 0.0;
 	}
 	else if (pos == 'S')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;
-		game->player.plane_x = FOV;
-		game->player.plane_y = 0.0;
 	}
 	else if (pos == 'E')
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
-		game->player.plane_x = FOV;
-		game->player.plane_y = 0.0;
 	}
 	else if (pos == 'W')
 	{
 		game->player.dir_x = -1;
 		game->player.dir_y = 0;
-		game->player.plane_x = FOV;
-		game->player.plane_y = 0.0;
 	}
-	map[y][x] = '0';
 }
