@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/25 21:09:01 by amdemuyn          #+#    #+#             */
+/*   Updated: 2025/07/25 21:12:36 by amdemuyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D
 # define CUB3D
 
@@ -153,43 +165,43 @@ void		real_raycasting(t_game *game, char **map);
 t_data		check_data(char *argv, t_game *game);
 void		init_data(t_data *data);
 int			read_map(char *map, t_data *data, t_game *game);
-int	    	valid_map_line(char *line, t_data *data);
+int			valid_map_line(char *line, t_data *data);
 
 //parser_map.c
-int     	process_map(t_data *data, int fd, t_game *game);
+int			process_map(t_data *data, int fd, t_game *game);
 char		*skip_to_map_start(int fd, int target);
 int			read_map_lines(t_data *data, int fd, char *line, char **backup_map);
-char    	*adjust_map_line(char *content, t_data *data);
-int     	valid_char_in_map(char *line);
+char		*adjust_map_line(char *content, t_data *data);
+int			valid_char_in_map(char *line);
 
 //parser_textures.c
-int     	invalid_or_dup_attr(char *line, t_data *data);
-int     	valid_texture_dir(char *line, t_data *data);
-void    	update_data_textures(char *file, t_data *data, char nsew);
-int     	normalize_line(char *line);
-int     	handle_char(char *line, int *i, int *j, int *space);
+int			invalid_or_dup_attr(char *line, t_data *data);
+int			valid_texture_dir(char *line, t_data *data);
+void		update_data_textures(char *file, t_data *data, char nsew);
+int			normalize_line(char *line);
+int			handle_char(char *line, int *i, int *j, int *space);
 
 //parser_colors.c
-int     	valid_color(char *line, t_data *data);
-int     	count_commas(char *line);
-char    	**split_rgb(char *line, char *linebreak);
-int     	valid_rgb_params(char **rgb);
-void    	update_data_colors(char **rgb, t_data *data, char f_or_c);
+int			valid_color(char *line, t_data *data);
+int			count_commas(char *line);
+char		**split_rgb(char *line, char *linebreak);
+int			valid_rgb_params(char **rgb);
+void		update_data_colors(char **rgb, t_data *data, char f_or_c);
 
 //parser_players.c
-int     	check_dup_players(char  letter, char yes_or_no);
-bool    	check_player_in_walls(char **map, int size);
-void    	get_player_position(char **map, t_game *game);
-void    	init_pos_player(t_game *game, char **map, int x, int y);
+int			check_dup_players(char letter, char yes_or_no);
+bool		check_player_in_walls(char **map, int size);
+void		get_player_position(char **map, t_game *game);
+void		init_pos_player(t_game *game, char **map, int x, int y);
 
 //parser_map_valid.c
-int     	check_n_init_map(t_data *data, int i, t_game *game);
-bool    	exec_check(t_data *data, t_game *game, int i, char **backup_map);
+int			check_n_init_map(t_data *data, int i, t_game *game);
+bool		exec_check(t_data *data, t_game *game, int i, char **backup_map);
 
 // parser_utils.c
 int			file_is_open(char *file);
-void    	map_length(char *line, int fd, char *map, t_data *data);
-int     	is_only_spaces(char *line);
+void		map_length(char *line, int fd, char *map, t_data *data);
+int			is_only_spaces(char *line);
 
 // Exit & free
 void		exit_error(char *info);
