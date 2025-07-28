@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 21:09:01 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 13:02:36 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:33:22 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,5 +230,10 @@ void			convert_colors_to_int(t_game *game, t_data *data);
 void			clear_screen_background(t_game *game);
 void			render_textured_wall_line(t_game *game, int x, t_ray *ray);
 void			calculate_texture_coordinates(t_game *game, t_ray *ray);
+void			setup_hooks(t_game game, t_data data);
+int				init_mlx(t_game *game);
+void			init_vars(t_game *game);
+int				render_frame(t_data *data);
+int				key_hook(int keycode, t_data *data);
 
 #endif

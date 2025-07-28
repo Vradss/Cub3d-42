@@ -6,27 +6,25 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 12:49:34 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:32:11 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	my_pixel_put(t_game *game, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-		return ;
-	dst = game->img_data + (y * game->line_len + x * (game->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	render_frame(t_data *data)
+int	render_frame(t_data *data)
 {
 	real_raycasting(data->game, data->map);
 	mlx_put_image_to_window(data->game->mlx, data->game->win, data->game->img,
 		0, 0);
+	return (0);
+}
+
+void	setup_hooks(t_game game, t_data data)
+{
+	mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
+	mlx_hook(game.win, 17, 0, close_window_hook, &data);
+	mlx_loop(game.mlx);
 }
 
 int	key_hook(int keycode, t_data *data)
@@ -48,42 +46,6 @@ int	key_hook(int keycode, t_data *data)
 	else
 		return (0);
 	render_frame(data);
-	return (0);
-}
-
-void	init_vars(t_game *game)
-{
-	game->player.x = 0.0;
-	game->player.y = 0.0;
-	game->map = malloc(sizeof(t_map));
-	if (!game->map)
-		exit_error("Error:\nMemory allocation failed");
-	game->map->map = NULL;
-	game->mlx = NULL;
-	game->win = NULL;
-	game->img = NULL;
-	game->img_data = NULL;
-	game->texture = NULL;
-	game->zbuffer = NULL;
-}
-
-int	init_mlx(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-	{
-		printf("Error:\nMLX init failed\n");
-		return (1);
-	}
-	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
-	if (!game->win)
-	{
-		printf("Error:\nWindow creation failed\n");
-		return (1);
-	}
-	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
-	game->img_data = mlx_get_data_addr(game->img, &game->bpp, &game->line_len,
-			&game->endian);
 	return (0);
 }
 
@@ -110,8 +72,6 @@ int	main(int argc, char **argv)
 		return (printf("Error:\nFailed to load textures\n"), 1);
 	data.game = &game;
 	render_frame(&data);
-	mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
-	mlx_hook(game.win, 17, 0, close_window_hook, &data);
-	mlx_loop(game.mlx);
+	setup_hooks(game, data);
 	return (0);
 }

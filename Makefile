@@ -40,6 +40,7 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 
 # Source files - All paths now include SRC_DIR
 SRCS =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/init.c \
 		$(SRC_DIR)/gnl/get_next_line.c \
 		$(SRC_DIR)/gnl/get_next_line_utils.c \
 		$(SRC_DIR)/raycasting.c \
