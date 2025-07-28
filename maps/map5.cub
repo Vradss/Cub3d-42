@@ -1,9 +1,9 @@
-NO ./textures/stone.xpm
-SO ./textures/stone_w_b.xpm
-WE ./textures/blue2.xpm   
-EA ./textures/stone_blue.xpm
+NO ./textures/wall_block.xpm
+SO ./textures/blue2.xpm
+WE ./textures/wall_red.xpm 
+EA ./textures/wall_red.xpm
 
-F 220,100,0
+F 60,60,60
 C 225,30,0
 
 111111111111111111111111

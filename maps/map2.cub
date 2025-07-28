@@ -1,5 +1,5 @@
 NO ./textures/stone.xpm
-SO ./textures/stone_w_b.xpm
+SO ./textures/wall_block.xpm
 WE ./textures/blue2.xpm   
 EA ./textures/stone_blue.xpm
 

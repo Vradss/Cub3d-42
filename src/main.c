@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 12:05:42 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 12:49:34 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	init_vars(t_game *game)
 {
 	game->player.x = 0.0;
 	game->player.y = 0.0;
-	// game->player.dir_x = -1.0;
-	// game->player.dir_y = 0.0;
-	// game->player.plane_x = 0.0;
-	// game->player.plane_y = FOV;
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
 		exit_error("Error:\nMemory allocation failed");
@@ -76,13 +72,13 @@ int	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
-		printf("Error: MLX init failed\n");
+		printf("Error:\nMLX init failed\n");
 		return (1);
 	}
-	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D test");
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!game->win)
 	{
-		printf("Error: Window creation failed\n");
+		printf("Error:\nWindow creation failed\n");
 		return (1);
 	}
 	game->img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -103,21 +99,19 @@ int	main(int argc, char **argv)
 	}
 	init_vars(&game);
 	data = check_data(argv[1], &game);
-	if (data.error)
-		return (printf("Error: parsing failed"), 1);
+	if (data.error || !data.raw_map)
+		return (printf("Error:\nParsing failed"), 1);
 	convert_colors_to_int(&game, &data);
 	if (!data.map)
-		return (printf("Error: Map not loaded correctly\n"), 1);
+		return (printf("Error:\nMap not loaded correctly\n"), 1);
 	if (init_mlx(&game) != 0)
 		return (1);
 	if (!load_wall_textures(&game, &data))
-		return (printf("Error: Failed to load textures\n"), 1);
+		return (printf("Error:\nFailed to load textures\n"), 1);
 	data.game = &game;
 	render_frame(&data);
 	mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
-	// Después de la línea: mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
 	mlx_hook(game.win, 17, 0, close_window_hook, &data);
 	mlx_loop(game.mlx);
-	printf("✅ Program finished successfully\n");
 	return (0);
 }

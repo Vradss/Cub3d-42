@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 20:16:27 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 12:06:33 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 12:35:05 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ bool	check_player_in_walls(char **map, int size)
 		x_y[1] = 0;
 		while (x_y[1] < (int)ft_strlen(map[x_y[0]]) && player[0] == -1)
 		{
-			if (map[x_y[0]][x_y[1]] == 'S' || map[x_y[0]][x_y[1]] == 'N' ||
-				map[x_y[0]][x_y[1]] == 'E' || map[x_y[0]][x_y[1]] == 'W')
+			if (map[x_y[0]][x_y[1]] == 'S' || map[x_y[0]][x_y[1]] == 'N'
+				|| map[x_y[0]][x_y[1]] == 'E' || map[x_y[0]][x_y[1]] == 'W')
 			{
 				player[0] = x_y[1];
 				player[1] = x_y[0];
@@ -102,8 +102,6 @@ void	get_player_position(char **map, t_game *game)
 			{
 				game->player.x = x + 0.5;
 				game->player.y = y + 0.5;
-				// game->player.dir_x = 0;
-				// game->player.dir_y = -1;
 				init_pos_player(game, map, x, y);
 				return ;
 			}
@@ -113,66 +111,31 @@ void	get_player_position(char **map, t_game *game)
 	}
 }
 
-// void	init_pos_player(t_game *game, char **map, int x, int y)
-// {
-// 	char	pos;
-
-// 	pos = map[y][x];
-// 	game->player.plane_x = FOV;
-// 	game->player.plane_y = 0.0;
-// 	if (pos == 'N')
-// 	{
-// 		game->player.dir_x = 0;
-// 		game->player.dir_y = -1;
-// 	}
-// 	else if (pos == 'S')
-// 	{
-// 		game->player.dir_x = 0;
-// 		game->player.dir_y = 1;
-// 	}
-// 	else if (pos == 'E')
-// 	{
-// 		game->player.dir_x = 1;
-// 		game->player.dir_y = 0;
-// 	}
-// 	else if (pos == 'W')
-// 	{
-// 		game->player.dir_x = -1;
-// 		game->player.dir_y = 0;
-// 	}
-// }
-
 void	init_pos_player(t_game *game, char **map, int x, int y)
 {
 	char	pos;
 
 	pos = map[y][x];
+	game->player.plane_x = FOV;
+	game->player.plane_y = 0.0;
 	if (pos == 'N')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = -1;
-		game->player.plane_x = FOV;
-		game->player.plane_y = 0;
 	}
 	else if (pos == 'S')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;
-		game->player.plane_x = -FOV;
-		game->player.plane_y = 0;
 	}
 	else if (pos == 'E')
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = FOV;
 	}
 	else if (pos == 'W')
 	{
 		game->player.dir_x = -1;
 		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = -FOV;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 21:09:01 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 12:02:41 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 13:02:36 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,25 @@
 # define WIN_HEIGHT 600
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.03
-
-// Teclas (macOS)
-# define ESC_KEY 53
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
 # define FOV 0.66
+
+#ifdef __APPLE__
+    # define ESC_KEY 53
+    # define W_KEY 13
+    # define A_KEY 0
+    # define S_KEY 1
+    # define D_KEY 2
+    # define LEFT_ARROW 123
+    # define RIGHT_ARROW 124
+#elif __linux__
+    # define ESC_KEY 65307
+    # define W_KEY 119
+    # define A_KEY 97
+    # define S_KEY 115
+    # define D_KEY 100
+    # define LEFT_ARROW 65361
+    # define RIGHT_ARROW 65363
+#endif
 
 typedef struct s_player
 {
