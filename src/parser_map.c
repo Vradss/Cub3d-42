@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:18:40 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 11:03:07 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 22:01:54 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * skip_to_map_start - Skips the file until it finds the start of the map.
+ * 
+ * 1 - Reads and discards lines up to the `target` line index.
+ * 2 - Then continues skipping lines that contain only whitespace.
+ * 3 - Stops when it finds a non-space, non-empty line (assumed map start).
+ * 4 - Returns this line for further processing.
+ */
 char	*skip_to_map_start(int fd, int target)
 {
 	char	*line;
@@ -32,6 +40,16 @@ char	*skip_to_map_start(int fd, int target)
 	return (line);
 }
 
+/**
+ * valid_char_in_map - Checks if a line contains only valid map characters.
+ * 
+ * 1 - Returns false immediately if the line is empty or just a newline.
+ * 2 - Iterates each character until '\n' or '\0':
+ *     - Accepts ' ', '0', '1', 'N', 'S', 'E', 'W' as valid.
+ *     - If it's a direction character, checks for duplicate players.
+ * 3 - If it encounters an invalid character, exits with an error.
+ * 4 - Returns true if the entire line is valid.
+ */
 int	valid_char_in_map(char *line)
 {
 	int		i;
@@ -59,6 +77,15 @@ int	valid_char_in_map(char *line)
 	return (true);
 }
 
+/**
+ * adjust_map_line - Rewrites a map line, replacing spaces and padding.
+ * 
+ * 1 - Allocates a new string of length `data->line_size`.
+ * 2 - Copies characters from the input `content`.
+ *     - Spaces are replaced with '1' to treat them as walls.
+ * 3 - If the line is shorter than `line_size`, fills remaining space with '1'.
+ * 4 - Null-terminates the string and returns it.
+ */
 char	*adjust_map_line(char *content, t_data *data)
 {
 	int		i;
@@ -85,7 +112,17 @@ char	*adjust_map_line(char *content, t_data *data)
 	return (line);
 }
 
-/* Reads the map lines, validates, stores them in data->raw_map and backup_map*/
+/**
+ * read_map_lines - Reads and validates each map line from file.
+ * 
+ * 1 - Iterates over lines, starting from the first provided line.
+ * 2 - Validates the line with `valid_char_in_map`; on error, frees and exits.
+ * 3 - Saves original line in `backup_map[i]`.
+ * 4 - Saves adjusted version in `data->raw_map[i]`.
+ * 5 - Frees current line and reads the next using `get_next_line()`.
+ * 6 - After all lines, calls `exec_check()` to finish validation.
+ * 7 - Returns the result of `exec_check()` (true or false).
+ */
 int	read_map_lines(t_data *data, int fd, char *line, char **backup_map)
 {
 	int	i;
@@ -104,6 +141,18 @@ int	read_map_lines(t_data *data, int fd, char *line, char **backup_map)
 	return (exec_check(data, data->game, i, backup_map));
 }
 
+/**
+ * process_map - Main entry point to process and validate the map.
+ * 
+ * 1 - Assigns `game` pointer to `data->game`.
+ * 2 - Calls `skip_to_map_start()` to locate the actual start of the map
+ *     (ignoring metadata and blank lines).
+ * 3 - Allocates memory for `raw_map` and `backup_map`.
+ *     - Both sized `data->map_length + 1`.
+ * 4 - If allocation fails or no valid line is found, frees and returns false.
+ * 5 - Calls `read_map_lines()` to validate, process, and populate the map data.
+ * 6 - Closes the file descriptor and returns success or failure.
+ */
 int	process_map(t_data *data, int fd, t_game *game)
 {
 	char	*line;

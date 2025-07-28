@@ -6,12 +6,26 @@
 /*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:18:27 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/24 20:24:43 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/07/28 21:54:56 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Initializes the final map structure once all lines have been read and 
+ * performs integrity checks.
+ * 
+ * 1 - Null-terminate the raw_map: `data->raw_map[i] = NULL`.
+ * 2 - Allocate `game->map` if not already done. Exit on malloc failure.
+ * 3 - Check for duplicate player positions using `check_dup_players()`.
+ *     If found, return false.
+ * 4 - Store player position via `get_player_position()`.
+ * 5 - Loop through `raw_map` to detect empty lines *inside* the map block
+ *     (i.e., after content has started). If so, it's invalid — exit error.
+ * 6 - Assign raw_map to both `game->map->map` and `data->map`.
+ * 7 - Return true to confirm successful map setup.
+ */
 int	check_n_init_map(t_data *data, int i, t_game *game)
 {
 	int	pos;
@@ -41,6 +55,21 @@ int	check_n_init_map(t_data *data, int i, t_game *game)
 	return (true);
 }
 
+/**
+ * Final validation and setup before accepting the map as valid.
+ * 
+ * 1 - Null-terminate the backup_map (copy of the raw map input).
+ * 2 - Check map size:
+ *     - Line length max 40 characters & lines must not exceed 20.
+ *     - If violated, free memory and return false.
+ * 3 - Call `check_n_init_map()` to perform player and empty line checks.
+ *     - If any issue, free memory and return false.
+ * 4 - Validate walls with `check_player_in_walls()` (ensure player not 
+ *     placed near unclosed space). If fails, free and return false.
+ * 5 - Ensure the last line of the map is not empty or just a newline.
+ *     If it is, the map is invalid — free and return false.
+ * 6 - If all checks pass, free `backup_map` and return true.
+ */
 bool	exec_check(t_data *data, t_game *game, int i, char **backup_map)
 {
 	int	pos;

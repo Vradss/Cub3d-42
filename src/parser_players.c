@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 20:16:27 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 12:35:05 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 22:05:30 by amdemuyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * check_dup_players - Tracks and validates the number of player directions.
+ * 
+ * 1 - Uses static counters for each direction (N, S, E, W).
+ * 2 - Increments the counter matching the given `letter`.
+ * 3 - If any direction exceeds 1, exits with "duplicated player" error.
+ * 4 - If `yes_or_no` is 'Y', does a final check:
+ *     - If sum is 0, exits with "no player found".
+ *     - If sum > 1, exits with "multiple players not allowed".
+ * 5 - Always returns false (used only for validation logic).
+ */
 int	check_dup_players(char letter, char yes_or_no)
 {
 	static int	n = 0;
@@ -41,6 +52,16 @@ int	check_dup_players(char letter, char yes_or_no)
 	return (false);
 }
 
+/**
+ * check_all_closed - Recursively checks if a region is surrounded by walls.
+ * 
+ * 1 - Stops and returns false if position is out of bounds.
+ * 2 - If cell is '1' or ' ', considers it closed and returns true.
+ * 3 - Marks the current cell as '1' to avoid revisiting it.
+ * 4 - Recursively checks all 4 directions (up, down, left, right).
+ * 5 - Combines all checks with AND to ensure complete enclosure.
+ * 6 - Returns true if all directions are properly enclosed.
+ */
 static bool	check_all_closed(int x, int y, char **map, int size)
 {
 	bool	is_closed;
@@ -58,6 +79,15 @@ static bool	check_all_closed(int x, int y, char **map, int size)
 	return (is_closed);
 }
 
+/**
+ * check_player_in_walls - Ensures player is within a closed wall area.
+ * 
+ * 1 - Scans the map to find the first player character (N, S, E, W).
+ * 2 - Stores the (x, y) position of the player.
+ * 3 - If no player is found, returns false.
+ * 4 - Calls `check_all_closed()` to verify the surrounding area is enclosed.
+ * 5 - Returns the result of that check.
+ */
 bool	check_player_in_walls(char **map, int size)
 {
 	int	player[2];
@@ -87,6 +117,15 @@ bool	check_player_in_walls(char **map, int size)
 	return (check_all_closed(player[0], player[1], map, size));
 }
 
+/**
+ * get_player_position - Locates the player and initializes position data.
+ * 
+ * 1 - Iterates over each row and column of the map.
+ * 2 - Looks for the first occurrence of 'N', 'E', 'S', or 'W'.
+ * 3 - Sets `game->player.x` and `game->player.y` to the center of that cell.
+ * 4 - Calls `init_pos_player()` to set direction and plane based on symbol.
+ * 5 - Returns immediately after first match (only one player expected).
+ */
 void	get_player_position(char **map, t_game *game)
 {
 	int	y;
@@ -110,6 +149,19 @@ void	get_player_position(char **map, t_game *game)
 		y++;
 	}
 }
+
+/**
+ * init_pos_player - Sets the player's direction and camera plane.
+ * 
+ * 1 - Reads the player's orientation character from the map.
+ * 2 - Initializes `plane_x` and `plane_y` with default camera plane values.
+ * 3 - Based on the direction:
+ *     - 'N' -> Facing up (dir_y = -1)
+ *     - 'S' -> Facing down (dir_y = 1)
+ *     - 'E' -> Facing right (dir_x = 1)
+ *     - 'W' -> Facing left (dir_x = -1)
+ * 4 - Sets the directional vector accordingly.
+ */
 
 void	init_pos_player(t_game *game, char **map, int x, int y)
 {
