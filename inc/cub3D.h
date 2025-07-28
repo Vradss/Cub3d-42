@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/25 21:09:01 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 14:33:22 by vrads            ###   ########.fr       */
+/*   Created: 2025/07/28 17:56:22 by vflorez           #+#    #+#             */
+/*   Updated: 2025/07/28 18:07:04 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D
-# define CUB3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libft/libft.h"
 # include "../src/gnl/get_next_line.h"
@@ -30,23 +30,13 @@
 # define ROT_SPEED 0.03
 # define FOV 0.66
 
-#ifdef __APPLE__
-    # define ESC_KEY 53
-    # define W_KEY 13
-    # define A_KEY 0
-    # define S_KEY 1
-    # define D_KEY 2
-    # define LEFT_ARROW 123
-    # define RIGHT_ARROW 124
-#elif __linux__
-    # define ESC_KEY 65307
-    # define W_KEY 119
-    # define A_KEY 97
-    # define S_KEY 115
-    # define D_KEY 100
-    # define LEFT_ARROW 65361
-    # define RIGHT_ARROW 65363
-#endif
+# define ESC_KEY 65307
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 typedef struct s_player
 {

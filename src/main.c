@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 14:32:11 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 18:17:38 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int	key_hook(int keycode, t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_game	game = {0};
+	t_game	game;
 	t_data	data;
 
+	game = (t_game){0};
 	if (argc != 2)
 	{
 		printf("Error:\nWrong nb of args. Use: ./cub3D maps/[map.cub]\n");

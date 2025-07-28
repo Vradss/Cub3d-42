@@ -6,7 +6,7 @@
 /*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:48:29 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 17:51:42 by vflorez          ###   ########.fr       */
+/*   Updated: 2025/07/28 18:21:02 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,20 @@ void	render_textured_wall_line(t_game *game, int x, t_ray *ray)
 	int		y;
 	int		tex_y;
 	int		color;
-	double	step;
 	double	tex_pos;
 
 	texture_data = get_wall_texture(game, ray->side, ray->dir_x, ray->dir_y);
-	step = 1.0 * game->textures.height / ray->line_height;
-	tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * step;
+	tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * (1.0
+			* game->textures.height / ray->line_height);
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
 		tex_y = (int)tex_pos & (game->textures.height - 1);
-		tex_pos += step;
+		tex_pos += (1.0 * game->textures.height / ray->line_height);
 		color = get_texture_pixel(texture_data, ray->tex_x, tex_y,
 				game->textures.width);
 		if (ray->side == 1)
-			color = (color >> 1) & 8355711;
+			color = (color >> 1) & 0x7F7F7F;
 		my_pixel_put(game, x, y, color);
 		y++;
 	}
