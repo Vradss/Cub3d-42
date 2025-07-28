@@ -17,15 +17,15 @@
 # include "../src/gnl/get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
-//# include <mlx.h>
+# include <../mlx_LINUX/mlx.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 1000
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.03
 # define FOV 0.66

@@ -15,7 +15,7 @@ SRC_DIR = src
 INC_DIR = inc
 OBJ_DIR = obj
 MLX_DIR_MAC = mlx
-MLX_DIR_LINUX = MLX42
+MLX_DIR_LINUX = mlx_LINUX
 
 # Compiler and flags
 CC = gcc
