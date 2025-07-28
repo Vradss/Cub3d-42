@@ -17,7 +17,7 @@
 # include "../src/gnl/get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+//# include <mlx.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
