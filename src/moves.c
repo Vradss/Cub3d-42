@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:07:03 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/24 14:44:22 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 11:42:04 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,52 +118,4 @@ void	strafe_right(t_game *game, char **map)
 		game->player.x = new_x;
 	if (!check_collision(map, game->player.x, new_y))
 		game->player.y = new_y;
-}
-/**
- * @brief Rotates player view to the left (counterclockwise)
- * @param game Pointer to game structure containing player data
- *
- * Applies 2D rotation matrix to both direction and camera plane vectors
- * using the rotation speed constant. Updates both dir_x/dir_y and
- * plane_x/plane_y to maintain proper perspective projection.
- */
-void	rotate_left(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = game->player.dir_x;
-	old_plane_x = game->player.plane_x;
-	game->player.dir_x = game->player.dir_x * cos(ROT_SPEED)
-		- game->player.dir_y * sin(ROT_SPEED);
-	game->player.dir_y = old_dir_x * sin(ROT_SPEED) + game->player.dir_y
-		* cos(ROT_SPEED);
-	game->player.plane_x = game->player.plane_x * cos(ROT_SPEED)
-		- game->player.plane_y * sin(ROT_SPEED);
-	game->player.plane_y = old_plane_x * sin(ROT_SPEED) + game->player.plane_y
-		* cos(ROT_SPEED);
-}
-/**
- * @brief Rotates player view to the right (clockwise)
- * @param game Pointer to game structure containing player data
- *
- * Applies 2D rotation matrix with negative rotation speed to rotate
- * clockwise. Updates both direction and camera plane vectors simultaneously
- * to ensure consistent raycasting perspective.
- */
-void	rotate_right(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = game->player.dir_x;
-	old_plane_x = game->player.plane_x;
-	game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED)
-		- game->player.dir_y * sin(-ROT_SPEED);
-	game->player.dir_y = old_dir_x * sin(-ROT_SPEED) + game->player.dir_y
-		* cos(-ROT_SPEED);
-	game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED)
-		- game->player.plane_y * sin(-ROT_SPEED);
-	game->player.plane_y = old_plane_x * sin(-ROT_SPEED) + game->player.plane_y
-		* cos(-ROT_SPEED);
 }

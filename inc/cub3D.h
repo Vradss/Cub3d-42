@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 21:09:01 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/28 10:11:45 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 12:02:41 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,8 @@ int				is_only_spaces(char *line);
 // Exit & free
 void			exit_error(char *info);
 void			free_array(void **arr);
+int				close_window_hook(t_data *data);
+void			cleanup_and_exit(t_data *data);
 
 // Movement functions
 void			move_forward(t_game *game, char **map);
@@ -216,5 +218,8 @@ int				get_texture_pixel(int *texture_data, int x, int y,
 int				*get_wall_texture(t_game *game, int side, double ray_dir_x,
 					double ray_dir_y);
 void			convert_colors_to_int(t_game *game, t_data *data);
+void			clear_screen_background(t_game *game);
+void			render_textured_wall_line(t_game *game, int x, t_ray *ray);
+void			calculate_texture_coordinates(t_game *game, t_ray *ray);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 10:12:45 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 12:05:42 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	render_frame(t_data *data)
 int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == ESC_KEY)
-		exit(0);
+		cleanup_and_exit(data);
 	else if (keycode == W_KEY)
 		move_forward(data->game, data->map);
 	else if (keycode == S_KEY)
@@ -55,10 +55,10 @@ void	init_vars(t_game *game)
 {
 	game->player.x = 0.0;
 	game->player.y = 0.0;
-	game->player.dir_x = -1.0;
-	game->player.dir_y = 0.0;
-	game->player.plane_x = 0.0;
-	game->player.plane_y = FOV;
+	// game->player.dir_x = -1.0;
+	// game->player.dir_y = 0.0;
+	// game->player.plane_x = 0.0;
+	// game->player.plane_y = FOV;
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
 		exit_error("Error:\nMemory allocation failed");
@@ -115,6 +115,8 @@ int	main(int argc, char **argv)
 	data.game = &game;
 	render_frame(&data);
 	mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
+	// Después de la línea: mlx_hook(game.win, 2, 1L << 0, key_hook, &data);
+	mlx_hook(game.win, 17, 0, close_window_hook, &data);
 	mlx_loop(game.mlx);
 	printf("✅ Program finished successfully\n");
 	return (0);

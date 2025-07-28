@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amdemuyn <amdemuyn@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:18:40 by amdemuyn          #+#    #+#             */
-/*   Updated: 2025/07/24 20:47:10 by amdemuyn         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:03:07 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*adjust_map_line(char *content, t_data *data)
 		line[i - 1] = '1';
 		i++;
 	}
-	line[content_len -1] = '\0';
+	line[content_len - 1] = '\0';
 	return (line);
 }
 

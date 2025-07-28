@@ -43,6 +43,7 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/gnl/get_next_line.c \
 		$(SRC_DIR)/gnl/get_next_line_utils.c \
 		$(SRC_DIR)/raycasting.c \
+		$(SRC_DIR)/raycasting_render.c \
 		$(SRC_DIR)/parser_data.c \
 		$(SRC_DIR)/exit_n_free.c \
 		$(SRC_DIR)/parser_map.c \
@@ -52,6 +53,7 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parser_map_valid.c \
 		$(SRC_DIR)/parser_players.c \
 		$(SRC_DIR)/moves.c \
+		$(SRC_DIR)/moves_rotate.c \
 		$(SRC_DIR)/texture_loading.c
 
 # Object files 
