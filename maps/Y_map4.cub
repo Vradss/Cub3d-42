@@ -1,0 +1,16 @@
+NO ./textures/stone.xpm
+SO ./textures/stone_w_b.xpm
+WE ./textures/blue2.xpm   
+EA ./textures/stone_blue.xpm
+
+F 20,20,20
+C 22,0,44
+
+111111111111
+1         11
+1          1
+111111111111
+10S000000001
+111111111111
+11         1
+111111111111

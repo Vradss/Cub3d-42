@@ -17,7 +17,6 @@ OBJ_DIR = obj
 MLX_DIR_MAC = mlx
 MLX_DIR_LINUX = MLX42
 
-
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
@@ -34,7 +33,6 @@ else
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm -lz
 	CFLAGS += -I$(MLX_DIR)/include
 endif
-
 
 #libft
 LIBFT_DIR   = libft
@@ -53,10 +51,9 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parser_utils.c \
 		$(SRC_DIR)/parser_colors.c \
 		$(SRC_DIR)/parser_map_valid.c \
+		$(SRC_DIR)/parser_players.c \
 		$(SRC_DIR)/moves.c \
 		$(SRC_DIR)/texture_loading.c
-
-
 
 # Object files 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
