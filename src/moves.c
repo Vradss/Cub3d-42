@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:07:03 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 11:42:04 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 17:52:47 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	check_collision(char **map, double x, double y)
  * @param game Pointer to game structure containing player data
  * @param map 2D character array for collision detection
  *
-
-	* Calculates new position based on player's direction vector and movement speed.
+ * Calculates new position based on player's direction 
+ * vector and movement speed.
  * Performs collision detection separately for X and Y axes to allow sliding
  * along walls. Only updates position if no collision is detected.
  */
@@ -56,6 +56,7 @@ void	move_forward(t_game *game, char **map)
 	if (!check_collision(map, game->player.x, new_y))
 		game->player.y = new_y;
 }
+
 /**
  * @brief Moves player backward (opposite to their facing direction)
  * @param game Pointer to game structure containing player data
@@ -77,6 +78,7 @@ void	move_backward(t_game *game, char **map)
 	if (!check_collision(map, game->player.x, new_y))
 		game->player.y = new_y;
 }
+
 /**
  * @brief Moves player left (perpendicular to facing direction)
  * @param game Pointer to game structure containing player data
@@ -98,6 +100,7 @@ void	strafe_left(t_game *game, char **map)
 	if (!check_collision(map, game->player.x, new_y))
 		game->player.y = new_y;
 }
+
 /**
  * @brief Moves player right (perpendicular to facing direction)
  * @param game Pointer to game structure containing player data

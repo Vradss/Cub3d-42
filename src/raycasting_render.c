@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_render.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:48:29 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 12:35:18 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 17:51:42 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	render_textured_wall_line(t_game *game, int x, t_ray *ray)
 		y++;
 	}
 }
+
 /**
  * @brief Clears the screen background with sky and floor colors
  * @param game Pointer to game structure containing image data
@@ -77,8 +78,8 @@ void	render_textured_wall_line(t_game *game, int x, t_ray *ray)
  */
 void	clear_screen_background(t_game *game)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < WIN_HEIGHT)

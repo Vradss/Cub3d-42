@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loading.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:20:51 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 10:13:05 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 17:54:51 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ int	*get_wall_texture(t_game *game, int side, double ray_dir_x,
 
 void	convert_colors_to_int(t_game *game, t_data *data)
 {
-	game->map->floor_color = (data->f_color[0] << 16) | (data->f_color[1] << 8) | data->f_color[2];
-
-	game->map->ceiling_color = (data->c_color[0] << 16) | (data->c_color[1] << 8) | data->c_color[2];
+	game->map->floor_color = (data->f_color[0] << 16)
+		| (data->f_color[1] << 8) | data->f_color[2];
+	game->map->ceiling_color = (data->c_color[0] << 16)
+		| (data->c_color[1] << 8) | data->c_color[2];
 }

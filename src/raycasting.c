@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:06:42 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 11:50:30 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 17:50:36 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	init_ray_data(t_game *game, int x, t_ray *ray)
 	else
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
+
 /**
  * @brief Calculates step direction and initial side distances for DDA
  * @param game Pointer to game structure containing player position

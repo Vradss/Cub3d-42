@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_rotate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vflorez <vflorez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:41:53 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/28 11:42:20 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 17:50:21 by vflorez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	rotate_left(t_game *game)
 	game->player.plane_y = old_plane_x * sin(ROT_SPEED) + game->player.plane_y
 		* cos(ROT_SPEED);
 }
+
 /**
  * @brief Rotates player view to the right (clockwise)
  * @param game Pointer to game structure containing player data
