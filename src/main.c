@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 12:48:20 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/24 14:48:39 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 10:12:45 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,16 @@ int	key_hook(int keycode, t_data *data)
 
 void	init_vars(t_game *game)
 {
-	// Inicializar jugador en valores por defecto
 	game->player.x = 0.0;
 	game->player.y = 0.0;
 	game->player.dir_x = -1.0;
 	game->player.dir_y = 0.0;
 	game->player.plane_x = 0.0;
 	game->player.plane_y = FOV;
-	// Inicializar mapa
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
 		exit_error("Error:\nMemory allocation failed");
 	game->map->map = NULL;
-	// Inicializar otros valores
 	game->mlx = NULL;
 	game->win = NULL;
 	game->img = NULL;
@@ -96,7 +93,7 @@ int	init_mlx(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game	game = {0}; //inicializamos toda la estructura a cero.
+	t_game	game = {0};
 	t_data	data;
 
 	if (argc != 2)

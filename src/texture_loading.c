@@ -6,7 +6,7 @@
 /*   By: vrads <vrads@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:20:51 by vrads             #+#    #+#             */
-/*   Updated: 2025/07/24 14:45:19 by vrads            ###   ########.fr       */
+/*   Updated: 2025/07/28 10:13:05 by vrads            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	load_wall_textures(t_game *game, t_data *data)
 		return (0);
 	game->textures.width = 64;
 	game->textures.height = 64;
-	printf("✅ All textures loaded successfully\n");
 	return (1);
 }
 
